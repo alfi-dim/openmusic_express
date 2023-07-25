@@ -1,0 +1,12 @@
+POST http://localhost:5000/songs
+Content-Type: application/json
+
+{
+  "title": "EE 2",
+  "year": 2020,
+  "performer": "Dimas",
+  "duration": 120,
+  "genre": "Pop"
+}
+
+###
