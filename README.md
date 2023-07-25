@@ -50,8 +50,6 @@ openmusic_express/
   │       └── repositoryfile.js
   ├── middleware/
   │   └── preresponsehandler.js
-  └── services/
-      └── servicefile.js
 
 ```
 
