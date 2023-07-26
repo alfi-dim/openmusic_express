@@ -1,4 +1,4 @@
-[![wakatime](https://wakatime.com/badge/user/9a942286-3953-4f34-bbf8-1c86b9179919/project/60d9e877-a071-4633-98e2-fbbc90b33c7e.svg)](https://wakatime.com/badge/user/9a942286-3953-4f34-bbf8-1c86b9179919/project/60d9e877-a071-4633-98e2-fbbc90b33c7e)
+[![wakatime](https://wakatime.com/badge/github/alfi-dim/openmusic_express.svg)](https://wakatime.com/badge/github/alfi-dim/openmusic_express)
 [![Code Style](https://badgen.net/badge/code%20style/airbnb/ff5a5f?icon=airbnb)](https://github.com/airbnb/javascript)
 # OpenMusic Express API
 
