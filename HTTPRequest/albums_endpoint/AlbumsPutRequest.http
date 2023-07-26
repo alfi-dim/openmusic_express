@@ -1,0 +1,10 @@
+PUT http://localhost:5000/albums/albums-tdD4EkF9IzRyryXb
+Content-Type: application/json
+
+{
+  "name": "album revisi",
+  "year": 2002,
+  "cover": "belum ada"
+}
+
+###
