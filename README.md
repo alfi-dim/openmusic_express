@@ -90,7 +90,7 @@ The API provides the following endpoints:
     
     └── `/songs/:id`: Delete song
 
-- `/albums`: Perform CRUD operations for songs
+- `/albums`: Perform CRUD operations for albums
   - GET
     
     └── `/albums`: Get all albums
