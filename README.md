@@ -1,3 +1,5 @@
+[![wakatime](https://wakatime.com/badge/user/9a942286-3953-4f34-bbf8-1c86b9179919/project/60d9e877-a071-4633-98e2-fbbc90b33c7e.svg)](https://wakatime.com/badge/user/9a942286-3953-4f34-bbf8-1c86b9179919/project/60d9e877-a071-4633-98e2-fbbc90b33c7e)
+[![Code Style](https://badgen.net/badge/code%20style/airbnb/ff5a5f?icon=airbnb)](https://github.com/airbnb/javascript)
 # OpenMusic Express API
 
 OpenMusic is an API built using Express.js and MongoDB, originally inspired by the [Dicoding: Belajar Fundamental Aplikasi Back-End](https://www.dicoding.com/academies/271) course, which used Hapi.js and PostgreSQL. The API is now reimagined and improved with Express.js and MongoDB, using Mongoose as the ODM.
@@ -58,7 +60,63 @@ openmusic_express/
 The API provides the following endpoints:
 
 - `/songs`: Perform CRUD operations for songs.
-- `/albums`: (Coming soon)...
+  - GET
+    
+    └── `/songs`: Get all songs
+    
+    └── `/songs/:id`: Get song by id
+    
+  - POST
+    
+    └── `/songs`: Add new song
+    ```
+    title: String
+    year: Number between 1900 and 3000
+    performer: String
+    genre: String
+    duration: Number
+    ```
+  - PUT
+    
+    └── `/songs/:id`: Update song
+    ```
+    title: String
+    year: Number between 1900 and 3000
+    performer: String
+    genre: String
+    duration: Number
+    ```
+  - DELETE
+    
+    └── `/songs/:id`: Delete song
+
+- `/albums`: Perform CRUD operations for songs
+  - GET
+    
+    └── `/albums`: Get all albums
+    
+    └── `/albums/:id`: Get album by id
+    
+  - POST
+    
+    └── `/albums`: Add new album
+    ```
+    name: String
+    year: Number between 1900 and 3000
+    cover: String (url)
+    ```
+  - PUT
+    
+    └── `/albums/:id`: Update album
+    ```
+    name: String
+    year: Number between 1900 and 3000
+    cover: String (url)
+    ```
+  - DELETE
+    
+    └── `/albums/:id`: Delete album
+    
 - `/playlists`: (Coming soon)...
 - `/collaborations`: (Coming soon)...
 
