@@ -9,7 +9,7 @@ class SongsRepository {
   async addNewSong(song) {
     const { _id } = await this.songModel.create(song);
     if (!_id) {
-      throw new Error('create new song failed!');
+      throw new InvariantError('create new song failed!');
     }
     return _id;
   }
