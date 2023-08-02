@@ -44,6 +44,13 @@ class SongsRepository {
       throw new NotFoundError('Song not found');
     }
   }
+
+  async verifyIfSongIsExist(id) {
+    const song = await this.songModel.findOne({ _id: id });
+    if (!song) {
+      throw new NotFoundError('Song not found');
+    }
+  }
 }
 
 module.exports = SongsRepository;
