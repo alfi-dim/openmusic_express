@@ -4,9 +4,20 @@ const bottle = new Bottle();
 
 const { nanoid } = require('nanoid');
 const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
 
 bottle.factory('nanoid', () => nanoid);
 bottle.factory('bcrypt', () => bcrypt);
+bottle.factory('jwt', () => jwt);
+
+// services
+
+const BcryptHashEngine = require('./Interfaces/services/BcryptHashEngine');
+const JwtTokenManager = require('./Interfaces/services/JwtTokenManager');
+
+bottle.service('BcryptHashEngine', BcryptHashEngine, 'bcrypt');
+bottle.service('JwtTokenManager', JwtTokenManager, 'jwt');
+
 // songs endpoint
 const SongsController = require('./Interfaces/controllers/songs');
 const SongsUseCase = require('./Applications/usecases/SongUseCase');
@@ -52,9 +63,4 @@ bottle.service('UsersRepository', UsersRepository, 'UserModel');
 bottle.service('UsersUseCase', UsersUseCase, 'UsersRepository', 'nanoid', 'BcryptHashEngine');
 bottle.service('UsersController', UsersController, 'UsersUseCase');
 
-// authentications
-
-const BcryptHashEngine = require('./Interfaces/services/BcryptHashEngine');
-
-bottle.service('BcryptHashEngine', BcryptHashEngine, 'bcrypt');
 module.exports = bottle;
