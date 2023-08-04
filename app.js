@@ -6,6 +6,7 @@ const songsRouter = require('./Frameworks/express/routes/songs');
 const albumsRouter = require('./Frameworks/express/routes/albums');
 const playlistsRouter = require('./Frameworks/express/routes/playlists');
 const usersRouter = require('./Frameworks/express/routes/users');
+const authenticationsRouter = require('./Frameworks/express/routes/authentications');
 const PreResponseHandler = require('./Middleware/PreResponseHandler');
 
 const app = express();
@@ -19,6 +20,7 @@ app.use(songsRouter);
 app.use(albumsRouter);
 app.use(playlistsRouter);
 app.use(usersRouter);
+app.use(authenticationsRouter);
 app.use(PreResponseHandler);
 
 module.exports = app;

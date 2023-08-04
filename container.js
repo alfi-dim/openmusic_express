@@ -4,9 +4,20 @@ const bottle = new Bottle();
 
 const { nanoid } = require('nanoid');
 const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
 
 bottle.factory('nanoid', () => nanoid);
 bottle.factory('bcrypt', () => bcrypt);
+bottle.factory('jwt', () => jwt);
+
+// services
+
+const BcryptHashEngine = require('./Interfaces/services/BcryptHashEngine');
+const JwtTokenManager = require('./Interfaces/services/JwtTokenManager');
+
+bottle.service('BcryptHashEngine', BcryptHashEngine, 'bcrypt');
+bottle.service('JwtTokenManager', JwtTokenManager, 'jwt');
+
 // songs endpoint
 const SongsController = require('./Interfaces/controllers/songs');
 const SongsUseCase = require('./Applications/usecases/SongUseCase');
@@ -49,7 +60,19 @@ const UserModel = require('./Frameworks/mongoose/models/users');
 
 bottle.factory('UserModel', () => UserModel);
 bottle.service('UsersRepository', UsersRepository, 'UserModel');
-bottle.service('UsersUseCase', UsersUseCase, 'UsersRepository', 'nanoid', 'bcrypt');
+bottle.service('UsersUseCase', UsersUseCase, 'UsersRepository', 'nanoid', 'BcryptHashEngine');
 bottle.service('UsersController', UsersController, 'UsersUseCase');
+
+// authentications endpoint
+
+const AuthenticationsController = require('./Interfaces/controllers/authentications');
+const AuthenticationsUseCase = require('./Applications/usecases/AuthenticationsUseCase');
+const AuthenticationsRepository = require('./Interfaces/repositories/authenticationsRepository');
+const AuthenticationModel = require('./Frameworks/mongoose/models/authentications');
+
+bottle.factory('AuthenticationModel', () => AuthenticationModel);
+bottle.service('AuthenticationsRepository', AuthenticationsRepository, 'AuthenticationModel');
+bottle.service('AuthenticationsUseCase', AuthenticationsUseCase, 'AuthenticationsRepository', 'UsersRepository', 'BcryptHashEngine', 'JwtTokenManager');
+bottle.service('AuthenticationsController', AuthenticationsController, 'AuthenticationsUseCase');
 
 module.exports = bottle;
