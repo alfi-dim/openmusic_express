@@ -19,6 +19,15 @@ class UsersRepository {
       throw new InvariantError('Username is not available');
     }
   }
-}
 
+  async getUserByUsername(username) {
+    const user = await this.userModel.findOne({ username });
+
+    if (!user) {
+      throw new InvariantError('Invalid login credentials. Please check your username and password and try again.');
+    }
+
+    return user;
+  }
+}
 module.exports = UsersRepository;
