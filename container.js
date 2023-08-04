@@ -63,4 +63,16 @@ bottle.service('UsersRepository', UsersRepository, 'UserModel');
 bottle.service('UsersUseCase', UsersUseCase, 'UsersRepository', 'nanoid', 'BcryptHashEngine');
 bottle.service('UsersController', UsersController, 'UsersUseCase');
 
+// authentications endpoint
+
+const AuthenticationsController = require('./Interfaces/controllers/authentications');
+const AuthenticationsUseCase = require('./Applications/usecases/AuthenticationsUseCase');
+const AuthenticationsRepository = require('./Interfaces/repositories/authenticationsRepository');
+const AuthenticationModel = require('./Frameworks/mongoose/models/authentications');
+
+bottle.factory('AuthenticationModel', () => AuthenticationModel);
+bottle.service('AuthenticationsRepository', AuthenticationsRepository, 'AuthenticationModel');
+bottle.service('AuthenticationsUseCase', AuthenticationsUseCase, 'AuthenticationsRepository', 'UsersRepository', 'BcryptHashEngine', 'JwtTokenManager');
+bottle.service('AuthenticationsController', AuthenticationsController, 'AuthenticationsUseCase');
+
 module.exports = bottle;

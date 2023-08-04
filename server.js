@@ -1,3 +1,4 @@
+require('dotenv').config();
 const app = require('./app');
 const ConnectToDatabase = require('./Frameworks/mongoose/connector/db');
 
