@@ -16,6 +16,9 @@ The main purpose of this project is to enhance understanding and learning of bac
 - Mongoose
 - nanoid
 - bottlejs
+- bcrypt
+- jwt
+- dotenv
 
 ## Project Structure
 
@@ -62,23 +65,76 @@ The API provides the following endpoints:
 - `/songs`: Perform CRUD operations for songs.
   - GET
     
-    └── `/songs`: Get all songs
+    └── `/`: Get all songs
+    response (200):
     
-    └── `/songs/:id`: Get song by id
+    ```
+    {
+      "status": String,
+      "data": {
+        "songs": [
+            {
+            "_id": String,
+            "title": String,
+            "year": Number,
+            "performer": String,
+            "genre": String,
+            "duration": Number,
+          },
+          {
+            "_id": String,
+            "title": String,
+            "year": Number,
+            "performer": String,
+            "genre": String,
+            "duration": Number,
+          },
+        ],
+      },
+    }
+    ```
+    
+    └── `/:id`: Get song by id
+    response (200):
+    ```
+    {
+      "status": String,
+      "data": {
+        "song":
+            {
+            "_id": String,
+            "title": String,
+            "year": Number,
+            "performer": String,
+            "genre": String,
+            "duration": Number,
+          },
+      },
+    }
+    ```
     
   - POST
     
-    └── `/songs`: Add new song
+    └── `/`: Add new song
     ```
     title: String
     year: Number between 1900 and 3000
     performer: String
     genre: String
     duration: Number
+    ```
+    response (201):
+    ```
+    {
+      "status": String,
+      "data": {
+        "songId": String
+      }
+    }
     ```
   - PUT
     
-    └── `/songs/:id`: Update song
+    └── `/:id`: Update song
     ```
     title: String
     year: Number between 1900 and 3000
@@ -86,37 +142,160 @@ The API provides the following endpoints:
     genre: String
     duration: Number
     ```
+    response (200):
+    ```
+    {
+      "status": String
+    }
+    ```
   - DELETE
     
-    └── `/songs/:id`: Delete song
+    └── `/:id`: Delete song
+    response (200):
+    ```
+    {
+      "status": String
+    }
+    ```
 
 - `/albums`: Perform CRUD operations for albums
   - GET
     
-    └── `/albums`: Get all albums
+    └── `/`: Get all albums
+    response (200):
+    ```
+    {
+      "status": String,
+      "data": {
+        "albums": [
+          {
+            "_id": String,
+            "name": String,
+            "year": Number,
+            "cover": String
+          },
+        ],
+      },
+    }
+    ```
     
-    └── `/albums/:id`: Get album by id
+    └── `/:id`: Get album by id
+    response (200):
+    ```
+    {
+      "status": String,
+      "data": {
+        "albums": {
+            "_id": String,
+            "name": String,
+            "year": Number,
+            "cover": String
+          },
+      },
+    }
+    ```
     
   - POST
     
-    └── `/albums`: Add new album
+    └── `/`: Add new album
     ```
     name: String
     year: Number between 1900 and 3000
     cover: String (url)
+    ```
+    response (201):
+    ```
+    {
+      "status": String,
+      "data": {
+        "albumId": String  
+      }
+    }
     ```
   - PUT
     
-    └── `/albums/:id`: Update album
+    └── `/:id`: Update album
     ```
     name: String
     year: Number between 1900 and 3000
     cover: String (url)
     ```
+    response (200):
+    ```
+    {
+      "status": String
+    }
+    ```
   - DELETE
     
-    └── `/albums/:id`: Delete album
+    └── `/:id`: Delete album
     
+    response (200):
+    ```
+    {
+      "status": String
+    }
+    ```
+
+- `/users`: Perform CRUD operations for users.
+  - GET (coming soon)...
+  - POST
+    └── `/`: Create new user
+    ```
+    username: String (unique)
+    fullname: String
+    password: String
+    ```
+    response (201):
+    ```
+    {
+      "status": String,
+      "data": {
+        "userId": String
+      }
+    }
+    ```
+  - PUT (coming soon)...
+  - DELETE (coming soon)...
+  - GET `/check-username/:username`: Perform check username availibilty operation
+    response (200):
+    ```
+    {
+      "status": String,
+      "data": {
+        "available": Boolean    
+      }
+    }
+    ```
+
+- `/authentications`: Perform login and logout operation
+  - POST
+    └── Login
+    ```
+    username: String
+    password: String
+    ```
+    response (201):
+    ```
+    {
+      "status": String,
+      "data": {
+        "refreshToken": String
+        "accessToken": String
+      }a
+    }
+    ```
+  - DELETE
+    └── Logout
+    ```
+    refreshToken: String
+    ```
+    response (200):
+    ```
+    {
+      "status": String
+    }
+    ```
 - `/playlists`: (Coming soon)...
 - `/collaborations`: (Coming soon)...
 
