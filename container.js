@@ -49,7 +49,12 @@ const UserModel = require('./Frameworks/mongoose/models/users');
 
 bottle.factory('UserModel', () => UserModel);
 bottle.service('UsersRepository', UsersRepository, 'UserModel');
-bottle.service('UsersUseCase', UsersUseCase, 'UsersRepository', 'nanoid', 'bcrypt');
+bottle.service('UsersUseCase', UsersUseCase, 'UsersRepository', 'nanoid', 'BcryptHashEngine');
 bottle.service('UsersController', UsersController, 'UsersUseCase');
 
+// authentications
+
+const BcryptHashEngine = require('./Interfaces/services/BcryptHashEngine');
+
+bottle.service('BcryptHashEngine', BcryptHashEngine, 'bcrypt');
 module.exports = bottle;
