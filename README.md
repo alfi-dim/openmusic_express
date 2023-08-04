@@ -52,7 +52,9 @@ openmusic_express/
   │   ├── controllers/
   │   │   └── controllerfile.js
   │   └── repositories/
-  │       └── repositoryfile.js
+  │   │   └── repositoryfile.js
+  │   └── services/
+  │       └── serviceFile.js
   ├── middleware/
   │   └── preresponsehandler.js
 
