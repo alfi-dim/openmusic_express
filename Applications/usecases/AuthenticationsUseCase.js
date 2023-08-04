@@ -23,7 +23,7 @@ class AuthenticationsUseCase {
     return {
       status: 'success',
       data: {
-        authenticationEntity,
+        ...authenticationEntity,
       },
     };
   }
