@@ -26,6 +26,12 @@ class JwtTokenManager {
       .catch(() => new InvariantError('Token is invalid'));
   }
 
+  async verifyAccessToken(token) {
+    const artifacts = await this.jwt.decode(token);
+    await this.jwt.verify(artifacts, process.env.ACCESS_TOKEN_KEY)
+      .catch(() => new InvariantError('Token is invalid'));
+  }
+
   async decodePayload(token) {
     const artifacts = await this.jwt.decode(token);
     return artifacts.decode.payload;
