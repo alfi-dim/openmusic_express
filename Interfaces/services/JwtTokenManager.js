@@ -1,3 +1,5 @@
+const InvariantError = require('../../exception/InvariantError');
+
 class JwtTokenManager {
   constructor(jwt) {
     this.jwt = jwt;
@@ -18,8 +20,15 @@ class JwtTokenManager {
     );
   }
 
-  verifyRefreshToken(payload) {
-    return this.jwt.verify(payload, process.env.REFRESH_TOKEN_KEY);
+  async verifyRefreshToken(token) {
+    const artifacts = await this.jwt.decode(token);
+    await this.jwt.verify(artifacts, process.env.REFRESH_TOKEN_KEY)
+      .catch(() => new InvariantError('Token is invalid'));
+  }
+
+  async decodePayload(token) {
+    const artifacts = await this.jwt.decode(token);
+    return artifacts.decode.payload;
   }
 }
 
