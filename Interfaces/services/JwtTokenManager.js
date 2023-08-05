@@ -9,7 +9,7 @@ class JwtTokenManager {
     return this.jwt.sign(
       payload,
       process.env.ACCESS_TOKEN_KEY,
-      { expiresIn: process.env.TOKEN_AGE },
+      { expiresIn: parseInt(process.env.TOKEN_AGE, 10) },
     );
   }
 
@@ -22,19 +22,24 @@ class JwtTokenManager {
 
   async verifyRefreshToken(token) {
     const artifacts = await this.jwt.decode(token);
-    await this.jwt.verify(artifacts, process.env.REFRESH_TOKEN_KEY)
-      .catch(() => new InvariantError('Token is invalid'));
+    await this.jwt.verify(artifacts, process.env.REFRESH_TOKEN_KEY, (err) => {
+      if (err) {
+        throw new InvariantError('Token is invalid');
+      }
+    });
   }
 
   async verifyAccessToken(token) {
-    const artifacts = await this.jwt.decode(token);
-    await this.jwt.verify(artifacts, process.env.ACCESS_TOKEN_KEY)
-      .catch(() => new InvariantError('Token is invalid'));
+    // const artifacts = await this.jwt.decode(token);
+    await this.jwt.verify(token, process.env.ACCESS_TOKEN_KEY, (err) => {
+      if (err) {
+        throw new InvariantError('Token is invalid');
+      }
+    });
   }
 
-  async decodePayload(token) {
-    const artifacts = await this.jwt.decode(token);
-    return artifacts.decode.payload;
+  decodePayload(token) {
+    return this.jwt.decode(token);
   }
 }
 
