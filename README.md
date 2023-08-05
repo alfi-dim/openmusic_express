@@ -301,4 +301,9 @@ The API provides the following endpoints:
 - `/playlists`: (Coming soon)...
 - `/collaborations`: (Coming soon)...
 
+## Environment File
+- `ACCESS_TOKEN_KEY`: run `require('crypto').createHash('sha256').update('text').digest('hex')` on node.js terminal
+- `REFRESH_TOKEN_KEY`: run `require('crypto').createHash('sha256').update('text').digest('hex')` on node.js terminal
+- `TOKEN_AGE`:  token expiration time in seconds
+
 Feel free to explore and contribute to the project. If you encounter any issues or have suggestions, don't hesitate to create an issue on this repository.
