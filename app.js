@@ -1,6 +1,7 @@
 const express = require('express');
 const logger = require('morgan');
 
+const AuthenticationHandler = require('./Middleware/AuthenticationHandler');
 const indexRouter = require('./Frameworks/express/routes/index');
 const songsRouter = require('./Frameworks/express/routes/songs');
 const albumsRouter = require('./Frameworks/express/routes/albums');
@@ -16,6 +17,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
 app.use('/', indexRouter);
+app.use(AuthenticationHandler);
 app.use(songsRouter);
 app.use(albumsRouter);
 app.use(playlistsRouter);

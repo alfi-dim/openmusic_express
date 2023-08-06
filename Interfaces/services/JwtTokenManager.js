@@ -1,3 +1,5 @@
+const InvariantError = require('../../exception/InvariantError');
+
 class JwtTokenManager {
   constructor(jwt) {
     this.jwt = jwt;
@@ -7,7 +9,7 @@ class JwtTokenManager {
     return this.jwt.sign(
       payload,
       process.env.ACCESS_TOKEN_KEY,
-      { expiresIn: process.env.TOKEN_AGE },
+      { expiresIn: parseInt(process.env.TOKEN_AGE, 10) },
     );
   }
 
@@ -18,8 +20,26 @@ class JwtTokenManager {
     );
   }
 
-  verifyRefreshToken(payload) {
-    return this.jwt.verify(payload, process.env.REFRESH_TOKEN_KEY);
+  async verifyRefreshToken(token) {
+    const artifacts = await this.jwt.decode(token);
+    await this.jwt.verify(artifacts, process.env.REFRESH_TOKEN_KEY, (err) => {
+      if (err) {
+        throw new InvariantError('Token is invalid');
+      }
+    });
+  }
+
+  async verifyAccessToken(token) {
+    // const artifacts = await this.jwt.decode(token);
+    await this.jwt.verify(token, process.env.ACCESS_TOKEN_KEY, (err) => {
+      if (err) {
+        throw new InvariantError('Token is invalid');
+      }
+    });
+  }
+
+  decodePayload(token) {
+    return this.jwt.decode(token);
   }
 }
 
