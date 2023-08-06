@@ -1,8 +1,0 @@
-GET http://localhost:5000/songs/songs-Zt1Z0UabRhRlw8pB
-Accept: application/json
-
-###
-GET http://localhost:5000/songs
-Accept: application/json
-
-###

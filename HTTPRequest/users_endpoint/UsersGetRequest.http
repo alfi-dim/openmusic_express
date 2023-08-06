@@ -1,4 +1,0 @@
-GET http://localhost:5000/users/check-username/dimas12
-Accept: application/json
-
-###
