@@ -48,7 +48,7 @@ const PlaylistModel = require('./Frameworks/mongoose/models/playlists');
 
 bottle.factory('PlaylistModel', () => PlaylistModel);
 bottle.service('PlaylistsRepository', PlaylistsRepository, 'PlaylistModel');
-bottle.service('PlaylistsUseCase', PlaylistsUseCase, 'PlaylistsRepository', 'SongsRepository', 'nanoid');
+bottle.service('PlaylistsUseCase', PlaylistsUseCase, 'PlaylistsRepository', 'SongsRepository', 'nanoid', 'JwtTokenManager');
 bottle.service('PlaylistsController', PlaylistsController, 'PlaylistsUseCase');
 
 // users endpoint
