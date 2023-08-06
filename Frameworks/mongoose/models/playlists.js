@@ -16,11 +16,8 @@ const playlistSchema = new Schema({
     ref: 'users',
     validate: {
       async validator(value) {
-        if (value) {
-          const UserModel = model('users');
-          return UserModel.exists({ _id: value });
-        }
-        return true; // Allow null or undefined values for the author field
+        const UserModel = model('users');
+        return UserModel.exists({ _id: value });
       },
       message: 'Referenced author does not exist.',
     },
