@@ -64,7 +64,7 @@ openmusic_express/
 
 The API provides the following endpoints:
 
-- `/songs`: Perform CRUD operations for songs.
+- `/songs`: Perform CRUD operations for songs.*
   - GET
     
     └── `/`: Get all songs
@@ -160,7 +160,7 @@ The API provides the following endpoints:
     }
     ```
 
-- `/albums`: Perform CRUD operations for albums
+- `/albums`: Perform CRUD operations for albums.*
   - GET
     
     └── `/`: Get all albums
@@ -270,7 +270,7 @@ The API provides the following endpoints:
     }
     ```
 
-- `/authentications`: Perform login and logout operation
+- `/authentications`: Perform login and logout operation.*
   - POST
     └── Login
     ```
@@ -298,9 +298,66 @@ The API provides the following endpoints:
       "status": String
     }
     ```
-- `/playlists`: (Coming soon)...
+- `/playlists`:  Perform CRUD operations for playlists.*
+  - GET^ (coming soon)...
+  - POST
+    └── `/`: Create new playlist
+    ```
+    name: String
+    ```
+    response (201):
+    ```
+    {
+      "status": String,
+      "data": {
+        "playlistId": String
+      }
+    }
+    ```
+  - PATCH^
+    └── `/:id`: update playlist name
+    ```
+    name: String
+    ```
+    response (200):
+    ```
+    {
+      "status": String,
+    }
+    ```
+
+    └── `/:id/songs`: add songs to playlist
+    ```
+    songId: String
+    ```
+    response (200):
+    ```
+    {
+      "status": String,
+    }
+    ```
+  - DELETE^
+    └── `/:id`: delete playlist
+    response (200):
+    ```
+    {
+      "status": String,
+    }
+    ```
+
+    └── `/:id/songs`: delete song from playlist
+    response (200):
+    ```
+    {
+      "status": String,
+    }
+    ```
+    
 - `/collaborations`: (Coming soon)...
 
+***: Authentication required (bearer token authentication)**
+
+**^: Only the user who originally created the data.**
 ## Environment File
 - `ACCESS_TOKEN_KEY`: run `require('crypto').createHash('sha256').update('text').digest('hex')` on node.js terminal
 - `REFRESH_TOKEN_KEY`: run `require('crypto').createHash('sha256').update('text').digest('hex')` on node.js terminal
