@@ -1,8 +1,0 @@
-DELETE http://localhost:5000/authentications
-Content-Type: application/json
-
-{
-  "refreshToken": "token"
-}
-
-###

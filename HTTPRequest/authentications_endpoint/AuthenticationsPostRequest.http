@@ -1,9 +1,0 @@
-POST http://localhost:5000/authentications
-Content-Type: application/json
-
-{
-  "username": "dimas1244",
-  "password": "supersecretpasswor"
-}
-
-###

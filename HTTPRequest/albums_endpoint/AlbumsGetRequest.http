@@ -1,8 +1,0 @@
-GET http://localhost:5000/albums/albums-tdD4EkF9IzRyryXb
-Accept: application/json
-
-###
-GET http://localhost:5000/albums
-Accept: application/json
-
-###
