@@ -1,8 +1,10 @@
 const InvariantError = require('../../exception/InvariantError');
+const NotFoundError = require('../../exception/NotFoundError');
 
 class UsersRepository {
-  constructor(userModel) {
+  constructor(userModel, formatModelUtils) {
     this.userModel = userModel;
+    this.formatModelUtils = formatModelUtils;
   }
 
   async createNewUser(user) {
@@ -28,6 +30,16 @@ class UsersRepository {
     }
 
     return user;
+  }
+
+  async getUserById(id) {
+    const user = await this.userModel.findOne({ _id: id });
+
+    if (!user) {
+      throw new NotFoundError('User not found');
+    }
+
+    return this.formatModelUtils.formatModelUser(user);
   }
 }
 module.exports = UsersRepository;

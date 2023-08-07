@@ -64,7 +64,7 @@ const UsersRepository = require('./Interfaces/repositories/usersRepository');
 const UserModel = require('./Frameworks/mongoose/models/users');
 
 bottle.factory('UserModel', () => UserModel);
-bottle.service('UsersRepository', UsersRepository, 'UserModel');
+bottle.service('UsersRepository', UsersRepository, 'UserModel', 'FormatModelUtils');
 bottle.service('UsersUseCase', UsersUseCase, 'UsersRepository', 'nanoid', 'BcryptHashEngine');
 bottle.service('UsersController', UsersController, 'UsersUseCase');
 
