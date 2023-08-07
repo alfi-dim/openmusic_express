@@ -18,6 +18,11 @@ const JwtTokenManager = require('./Interfaces/services/JwtTokenManager');
 bottle.service('BcryptHashEngine', BcryptHashEngine, 'bcrypt');
 bottle.service('JwtTokenManager', JwtTokenManager, 'jwt');
 
+// utils
+
+const FormatModelUtils = require('./Utils/FormatModelUtils');
+
+bottle.factory('FormatModelUtils', () => FormatModelUtils);
 // songs endpoint
 const SongsController = require('./Interfaces/controllers/songs');
 const SongsUseCase = require('./Applications/usecases/SongUseCase');
@@ -25,7 +30,7 @@ const SongsRepository = require('./Interfaces/repositories/songsRepository');
 const SongModel = require('./Frameworks/mongoose/models/songs');
 
 bottle.factory('SongModel', () => SongModel);
-bottle.service('SongsRepository', SongsRepository, 'SongModel');
+bottle.service('SongsRepository', SongsRepository, 'SongModel', 'FormatModelUtils');
 bottle.service('SongsUseCase', SongsUseCase, 'SongsRepository', 'nanoid');
 bottle.service('SongsController', SongsController, 'SongsUseCase');
 
