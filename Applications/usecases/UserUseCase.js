@@ -35,6 +35,17 @@ class UserUseCase {
       },
     };
   }
+
+  async getUserByIdUseCase(userId) {
+    const user = await this.userRepository.getUserById(userId);
+
+    return {
+      status: 'success',
+      data: {
+        user,
+      },
+    };
+  }
 }
 
 module.exports = UserUseCase;

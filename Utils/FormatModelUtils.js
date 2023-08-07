@@ -31,12 +31,10 @@ class FormatModelUtils {
     _id,
     username,
     fullname,
-    password,
   }) => ({
     id: _id,
     username,
     fullname,
-    password,
   });
 
   static formatModelPlaylist = ({

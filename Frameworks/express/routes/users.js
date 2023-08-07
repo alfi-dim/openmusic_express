@@ -14,4 +14,9 @@ router.get('/users/check-username/:username', (req, res, next) => {
     .catch((err) => next(err));
 });
 
+router.get('/users/:id', (req, res, next) => {
+  usersController.getUserByIdController(req, res)
+    .catch((err) => next(err));
+});
+
 module.exports = router;
