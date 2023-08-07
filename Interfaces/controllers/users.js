@@ -14,6 +14,12 @@ class UsersController {
     const result = await this.userUseCase.verifyIfUsernameIsAvailableUseCase(username);
     res.json(result);
   }
+
+  async getUserByIdController(req, res) {
+    const { id } = req.params;
+    const result = await this.userUseCase.getUserByIdUseCase(id);
+    res.json(result);
+  }
 }
 
 module.exports = UsersController;
