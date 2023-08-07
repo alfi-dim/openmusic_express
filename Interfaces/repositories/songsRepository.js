@@ -2,8 +2,9 @@ const NotFoundError = require('../../exception/NotFoundError');
 const InvariantError = require('../../exception/InvariantError');
 
 class SongsRepository {
-  constructor(songModel) {
+  constructor(songModel, formatModelUtils) {
     this.songModel = songModel;
+    this.formatModelUtils = formatModelUtils;
   }
 
   async addNewSong(song) {
@@ -15,7 +16,8 @@ class SongsRepository {
   }
 
   async getAllSong() {
-    return this.songModel.find({});
+    const songs = await this.songModel.find({});
+    return songs.map(this.formatModelUtils.formatModelSong);
   }
 
   async getSongById(id) {
@@ -23,7 +25,7 @@ class SongsRepository {
     if (!song) {
       throw new NotFoundError('Song not found');
     }
-    return song;
+    return this.formatModelUtils.formatModelSong(song);
   }
 
   async updateSongById(id, updateData) {
