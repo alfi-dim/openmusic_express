@@ -41,7 +41,7 @@ const AlbumsRepository = require('./Interfaces/repositories/albumsRepository');
 const AlbumModel = require('./Frameworks/mongoose/models/albums');
 
 bottle.factory('AlbumModel', () => AlbumModel);
-bottle.service('AlbumsRepository', AlbumsRepository, 'AlbumModel');
+bottle.service('AlbumsRepository', AlbumsRepository, 'AlbumModel', 'FormatModelUtils');
 bottle.service('AlbumsUseCase', AlbumsUseCase, 'AlbumsRepository', 'nanoid');
 bottle.service('AlbumsController', AlbumsController, 'AlbumsUseCase');
 

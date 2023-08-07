@@ -2,8 +2,9 @@ const InvariantError = require('../../exception/InvariantError');
 const NotFoundError = require('../../exception/NotFoundError');
 
 class AlbumsRepository {
-  constructor(albumModel) {
+  constructor(albumModel, formatModelUtils) {
     this.albumModel = albumModel;
+    this.formatModelUtils = formatModelUtils;
   }
 
   async addNewAlbum(album) {
@@ -16,7 +17,8 @@ class AlbumsRepository {
   }
 
   async getAllAlbum() {
-    return this.albumModel.find({});
+    const albums = await this.albumModel.find({});
+    return albums.map(this.formatModelUtils.formatModelAlbum);
   }
 
   async getAlbumById(id) {
@@ -24,7 +26,7 @@ class AlbumsRepository {
     if (!album) {
       throw new NotFoundError('Album not found');
     }
-    return album;
+    return this.formatModelUtils.formatModelAlbum(album);
   }
 
   async updateAlbumById(id, updateData) {
