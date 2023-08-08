@@ -54,6 +54,12 @@ class PlaylistsController {
     const result = await this.playlistUseCase.deletePlaylistByIdUseCase(useCasePayload);
     res.json(result);
   }
+
+  async getPlaylistByIdController(req, res) {
+    const { id: playlistId } = req.params;
+    const result = await this.playlistUseCase.getPlaylistByIdUseCase(playlistId);
+    res.json(result);
+  }
 }
 
 module.exports = PlaylistsController;

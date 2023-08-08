@@ -67,6 +67,20 @@ class PlaylistUseCase {
     };
   }
 
+  async getPlaylistByIdUseCase(id) {
+    const playlist = await this.playlistsRepository.getPlaylistById(id);
+
+    const { songs } = playlist;
+    playlist.songs = await this.songsRepository.getSongByArrayOfIds(songs);
+
+    return {
+      status: 'success',
+      data: {
+        playlist,
+      },
+    };
+  }
+
   async tokenDecoder(token) {
     await this.tokenManager.verifyAccessToken(token);
     const { userId } = await this.tokenManager.decodePayload(token);

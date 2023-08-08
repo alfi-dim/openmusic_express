@@ -25,4 +25,8 @@ router.delete('/playlists/:id', (req, res, next) => {
   playlistsController.deletePlaylistByIdController(req, res)
     .catch((err) => next(err));
 });
+router.get('/playlists/:id', (req, res, next) => {
+  playlistsController.getPlaylistByIdController(req, res)
+    .catch((err) => next(err));
+});
 module.exports = router;

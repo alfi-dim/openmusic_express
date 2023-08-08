@@ -53,6 +53,15 @@ class SongsRepository {
       throw new NotFoundError('Song not found');
     }
   }
+
+  async getSongByArrayOfIds(arrayOfIds) {
+    const songs = await this.songModel.find({ _id: { $in: arrayOfIds } });
+
+    if (!songs) {
+      return [];
+    }
+    return songs.map(this.formatModelUtils.formatModelSong);
+  }
 }
 
 module.exports = SongsRepository;
