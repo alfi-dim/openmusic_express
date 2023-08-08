@@ -35,6 +35,23 @@ class AuthenticationsUseCase {
       status: 'success',
     };
   }
+
+  async refreshAccessTokenUseCase(useCasePayload) {
+    const { refreshToken } = useCasePayload;
+    await this.tokenManager.verifyRefreshToken(refreshToken);
+    await this.authenticationsRepository.verifyIfRefreshTokenIsExist(refreshToken);
+
+    const { username, userId } = await this.tokenManager.decodePayload(refreshToken);
+
+    const accessToken = await this.tokenManager.generateAccessToken({ username, userId });
+
+    return {
+      status: 'success',
+      data: {
+        accessToken,
+      },
+    };
+  }
 }
 
 module.exports = AuthenticationsUseCase;

@@ -14,6 +14,12 @@ class AuthenticationsController {
     const result = await this.authenticationsUseCase.logoutUseCase(useCasePayload);
     res.json(result);
   }
+
+  async refreshAccessTokenController(req, res) {
+    const useCasePayload = req.body;
+    const result = await this.authenticationsUseCase.refreshAccessTokenUseCase(useCasePayload);
+    res.json(result);
+  }
 }
 
 module.exports = AuthenticationsController;

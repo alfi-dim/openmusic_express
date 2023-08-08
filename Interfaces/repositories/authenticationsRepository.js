@@ -15,6 +15,13 @@ class AuthenticationsRepository {
       throw new InvariantError('token not found');
     }
   }
+
+  async verifyIfRefreshTokenIsExist(token) {
+    const refreshToken = await this.authenticationModel.findOne({ token });
+    if (!refreshToken) {
+      throw new InvariantError('Token not found');
+    }
+  }
 }
 
 module.exports = AuthenticationsRepository;

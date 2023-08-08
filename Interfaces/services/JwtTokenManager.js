@@ -21,8 +21,7 @@ class JwtTokenManager {
   }
 
   async verifyRefreshToken(token) {
-    const artifacts = await this.jwt.decode(token);
-    await this.jwt.verify(artifacts, process.env.REFRESH_TOKEN_KEY, (err) => {
+    await this.jwt.verify(token, process.env.REFRESH_TOKEN_KEY, (err) => {
       if (err) {
         throw new InvariantError('Token is invalid');
       }
@@ -30,7 +29,6 @@ class JwtTokenManager {
   }
 
   async verifyAccessToken(token) {
-    // const artifacts = await this.jwt.decode(token);
     await this.jwt.verify(token, process.env.ACCESS_TOKEN_KEY, (err) => {
       if (err) {
         throw new InvariantError('Token is invalid');

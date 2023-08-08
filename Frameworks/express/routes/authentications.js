@@ -14,5 +14,8 @@ router.delete('/authentications', (req, res, next) => {
   authenticationsController.logoutController(req, res)
     .catch((err) => next(err));
 });
-
+router.put('/authentications', (req, res, next) => {
+  authenticationsController.refreshAccessTokenController(req, res)
+    .catch((err) => next(err));
+});
 module.exports = router;
