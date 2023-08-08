@@ -29,6 +29,7 @@ openmusic_express/
   ├── app.js
   ├── container.js
   ├── server.js
+  ├── .env
   ├── application/
   │   └── use_case/
   │       └── use_casefile.js
@@ -45,9 +46,6 @@ openmusic_express/
   │       │   └── db.js
   │       └── models/
   │           └── modelfile.js
-  ├── http_request/
-  │   └── endpointdirectory/
-  │       └── endpointrequest.js
   ├── interfaces/
   │   ├── controllers/
   │   │   └── controllerfile.js
@@ -57,6 +55,8 @@ openmusic_express/
   │       └── serviceFile.js
   ├── middleware/
   │   └── preresponsehandler.js
+  ├── Utils/
+  │   └── formattermodeltutils.js
 
 ```
 
