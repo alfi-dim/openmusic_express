@@ -3,8 +3,9 @@ const NotFoundError = require('../../exception/NotFoundError');
 const AuthorizationError = require('../../exception/AuthorizationError');
 
 class PlaylistsRepository {
-  constructor(playlistModel) {
+  constructor(playlistModel, formatModelUtils) {
     this.playlistModel = playlistModel;
+    this.formatModelUtils = formatModelUtils;
   }
 
   async addNewPlaylist(playlist) {
@@ -34,6 +35,16 @@ class PlaylistsRepository {
     if (!modifiedCount) {
       throw new InvariantError('Failed to insert song');
     }
+  }
+
+  async getPlaylistById(playlistId) {
+    const playlist = await this.playlistModel.findOne({ _id: playlistId }).populate('songs');
+
+    if (!playlist) {
+      throw new NotFoundError('Playlist not found');
+    }
+
+    return this.formatModelUtils.formatModelPlaylist(playlist);
   }
 
   async deleteSongFromPlaylist(playlistId, songId) {
