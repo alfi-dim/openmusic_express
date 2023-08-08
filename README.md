@@ -76,7 +76,7 @@ The API provides the following endpoints:
       "data": {
         "songs": [
             {
-            "_id": String,
+            "id": String,
             "title": String,
             "year": Number,
             "performer": String,
@@ -84,7 +84,7 @@ The API provides the following endpoints:
             "duration": Number,
           },
           {
-            "_id": String,
+            "id": String,
             "title": String,
             "year": Number,
             "performer": String,
@@ -104,7 +104,7 @@ The API provides the following endpoints:
       "data": {
         "song":
             {
-            "_id": String,
+            "id": String,
             "title": String,
             "year": Number,
             "performer": String,
@@ -171,7 +171,7 @@ The API provides the following endpoints:
       "data": {
         "albums": [
           {
-            "_id": String,
+            "id": String,
             "name": String,
             "year": Number,
             "cover": String
@@ -188,7 +188,7 @@ The API provides the following endpoints:
       "status": String,
       "data": {
         "albums": {
-            "_id": String,
+            "id": String,
             "name": String,
             "year": Number,
             "cover": String
@@ -240,8 +240,26 @@ The API provides the following endpoints:
     ```
 
 - `/users`: Perform CRUD operations for users.
-  - GET (coming soon)...
+  - GET
+    
+    └── `/:id`: Get user by id
+    response (200):
+    ```
+    {
+      "status": String,
+      "data": {
+        "user": [
+          {
+            "id": String,
+            "username": String,
+            "fullname": String,
+          },
+        ],
+      },
+    }
+    ```
   - POST
+    
     └── `/`: Create new user
     ```
     username: String (unique)
@@ -260,6 +278,7 @@ The API provides the following endpoints:
   - PUT (coming soon)...
   - DELETE (coming soon)...
   - GET `/check-username/:username`: Perform check username availibilty operation
+    
     response (200):
     ```
     {
@@ -272,6 +291,7 @@ The API provides the following endpoints:
 
 - `/authentications`: Perform login and logout operation.*
   - POST
+    
     └── Login
     ```
     username: String
@@ -288,6 +308,7 @@ The API provides the following endpoints:
     }
     ```
   - DELETE
+    
     └── Logout
     ```
     refreshToken: String
@@ -298,9 +319,59 @@ The API provides the following endpoints:
       "status": String
     }
     ```
+  - PUT
+      
+    └── Refresh access token
+    ```
+    refreshToken: String
+    ```
+    response (200):
+    ```
+    {
+      "status": String,
+      "data": {
+        "accessToken": String
+      }
+    }
+    ```
 - `/playlists`:  Perform CRUD operations for playlists.*
-  - GET^ (coming soon)...
+  - GET
+    
+    └── `/:id`: Get playlist by id
+    
+    response (200):
+    ```
+    {
+      "status": String,
+      "data": {
+        "playlist": {
+          "id": String,
+          "name": String,
+          "owner": String,
+          "songs": [
+            {
+            "id": String,
+            "title": String,
+            "year": Number,
+            "performer": String,
+            "genre": String,
+            "duration": Number,
+          },
+          {
+            "id": String,
+            "title": String,
+            "year": Number,
+            "performer": String,
+            "genre": String,
+            "duration": Number,
+          },
+        ],
+        }
+      }
+    }
+    ```
   - POST
+    
     └── `/`: Create new playlist
     ```
     name: String
@@ -315,6 +386,7 @@ The API provides the following endpoints:
     }
     ```
   - PATCH^
+    
     └── `/:id`: update playlist name
     ```
     name: String
@@ -337,6 +409,7 @@ The API provides the following endpoints:
     }
     ```
   - DELETE^
+    
     └── `/:id`: delete playlist
     response (200):
     ```
