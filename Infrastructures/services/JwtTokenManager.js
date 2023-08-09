@@ -1,7 +1,9 @@
-const InvariantError = require('../../exception/InvariantError');
+const TokenManager = require('../../Interfaces/contracts/services/TokenManager');
+const InvariantError = require('../../Exceptions/InvariantError');
 
-class JwtTokenManager {
+class JwtTokenManager extends TokenManager {
   constructor(jwt) {
+    super();
     this.jwt = jwt;
   }
 

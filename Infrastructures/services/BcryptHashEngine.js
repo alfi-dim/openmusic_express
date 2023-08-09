@@ -1,7 +1,9 @@
-const AuthenticationError = require('../../exception/AuthenticationError');
+const HashEngine = require('../../Interfaces/contracts/services/HashEngine');
+const AuthenticationError = require('../../Exceptions/AuthenticationError');
 
-class BcryptHashEngine {
+class BcryptHashEngine extends HashEngine {
   constructor(bcrypt, saltRound = 10) {
+    super();
     this.bcrypt = bcrypt;
     this.saltRound = saltRound;
   }
