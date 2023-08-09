@@ -1,8 +1,10 @@
-const NotFoundError = require('../../exception/NotFoundError');
-const InvariantError = require('../../exception/InvariantError');
+const SongsRepository = require('../../Interfaces/contracts/repositories/songsRepository');
+const NotFoundError = require('../../Exceptions/NotFoundError');
+const InvariantError = require('../../Exceptions/InvariantError');
 
-class SongsRepository {
+class SongsRepositoryMongoose extends SongsRepository {
   constructor(songModel, formatModelUtils) {
+    super();
     this.songModel = songModel;
     this.formatModelUtils = formatModelUtils;
   }
@@ -64,4 +66,4 @@ class SongsRepository {
   }
 }
 
-module.exports = SongsRepository;
+module.exports = SongsRepositoryMongoose;

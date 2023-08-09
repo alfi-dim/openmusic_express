@@ -1,12 +1,17 @@
-const InvariantError = require('../../exception/InvariantError');
+const AuthenticationsRepository = require('../../Interfaces/contracts/repositories/authenticationsRepository');
+const InvariantError = require('../../Exceptions/InvariantError');
 
-class AuthenticationsRepository {
+class AuthenticationsRepositoryMongoose extends AuthenticationsRepository {
   constructor(authenticationModel) {
+    super();
     this.authenticationModel = authenticationModel;
   }
 
-  addNewRefreshToken(token) {
-    return this.authenticationModel.create({ token });
+  async addNewRefreshToken(token) {
+    const { _id } = await this.authenticationModel.create({ token });
+    if (!_id) {
+      throw new InvariantError('Fail to add token into database');
+    }
   }
 
   async deleteRefreshToken(token) {
@@ -24,4 +29,4 @@ class AuthenticationsRepository {
   }
 }
 
-module.exports = AuthenticationsRepository;
+module.exports = AuthenticationsRepositoryMongoose;

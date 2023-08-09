@@ -1,9 +1,11 @@
-const InvariantError = require('../../exception/InvariantError');
-const NotFoundError = require('../../exception/NotFoundError');
-const AuthorizationError = require('../../exception/AuthorizationError');
+const PlaylistsRepository = require('../../Interfaces/contracts/repositories/playlistsRepository');
+const InvariantError = require('../../Exceptions/InvariantError');
+const NotFoundError = require('../../Exceptions/NotFoundError');
+const AuthorizationError = require('../../Exceptions/AuthorizationError');
 
-class PlaylistsRepository {
+class PlaylistsRepositoryMongoose extends PlaylistsRepository {
   constructor(playlistModel, formatModelUtils) {
+    super();
     this.playlistModel = playlistModel;
     this.formatModelUtils = formatModelUtils;
   }
@@ -109,4 +111,4 @@ class PlaylistsRepository {
   }
 }
 
-module.exports = PlaylistsRepository;
+module.exports = PlaylistsRepositoryMongoose;
