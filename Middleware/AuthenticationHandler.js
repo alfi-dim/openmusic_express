@@ -1,4 +1,4 @@
-const AuthorizationError = require('../exception/AuthorizationError');
+const AuthorizationError = require('../Exceptions/AuthorizationError');
 
 const AuthenticationHandler = (req, res, next) => {
   const { originalUrl } = req;

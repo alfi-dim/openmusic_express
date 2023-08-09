@@ -1,4 +1,4 @@
-const ClientError = require('../exception/ClientError');
+const ClientError = require('../Exceptions/ClientError');
 
 const PreResponseHandler = (err, req, res, next) => {
   if (err) {
