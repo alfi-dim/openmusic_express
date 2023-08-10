@@ -71,7 +71,7 @@ bottle.service('UsersController', UsersController, 'UsersUseCase');
 // authentications endpoint
 
 const AuthenticationsController = require('./Infrastructures/controllers/authentications');
-const AuthenticationsUseCase = require('./Applications/usecases/AuthenticationsUseCase');
+const AuthenticationsUseCase = require('./Applications/usecases/authentications');
 const AuthenticationsRepository = require('./Infrastructures/repositories/authenticationsRepositoryMongoose');
 const AuthenticationModel = require('./Frameworks/mongoose/models/authentications');
 

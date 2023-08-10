@@ -5,19 +5,19 @@ class AuthenticationsController {
 
   async loginController(req, res) {
     const useCasePayload = req.body;
-    const result = await this.authenticationsUseCase.loginUseCase(useCasePayload);
+    const result = await this.authenticationsUseCase.login(useCasePayload);
     res.json(result).status(201);
   }
 
   async logoutController(req, res) {
     const useCasePayload = req.body;
-    const result = await this.authenticationsUseCase.logoutUseCase(useCasePayload);
+    const result = await this.authenticationsUseCase.logout(useCasePayload);
     res.json(result);
   }
 
   async refreshAccessTokenController(req, res) {
     const useCasePayload = req.body;
-    const result = await this.authenticationsUseCase.refreshAccessTokenUseCase(useCasePayload);
+    const result = await this.authenticationsUseCase.refreshAccessToken(useCasePayload);
     res.json(result);
   }
 }
