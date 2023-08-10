@@ -4,7 +4,9 @@ class UseCase {
     throw new Error('Method not yet implemented');
   }
 
-  verifyPayload(useCasePayload) {
+  validatePayload(payload) {
     throw new Error('Method not yet implemented');
   }
 }
+
+module.exports = UseCase;
