@@ -5,31 +5,40 @@ class AlbumsController {
 
   async addNewAlbumController(req, res) {
     const useCasePayload = req.body;
-    const result = await this.albumUseCase.addNewAlbumUseCase(useCasePayload);
+    const result = await this.albumUseCase.addNewAlbum(useCasePayload);
     res.json(result).status(201);
   }
 
   async getAllAlbumController(req, res) {
-    const result = await this.albumUseCase.getAllAlbumUseCase();
+    const result = await this.albumUseCase.getAllAlbum();
     res.json(result);
   }
 
   async getAlbumByIdController(req, res) {
     const { id } = req.params;
-    const result = await this.albumUseCase.getAlbumByIdUseCase(id);
+    const useCasePayload = {
+      id,
+    };
+    const result = await this.albumUseCase.getAlbumById(useCasePayload);
     res.json(result);
   }
 
   async updateAlbumByIdController(req, res) {
     const { id } = req.params;
-    const useCasePayload = req.body;
-    const result = await this.albumUseCase.updateAlbumByIdUseCase(id, useCasePayload);
+    const useCasePayload = {
+      id,
+      body: req.body,
+    };
+    const result = await this.albumUseCase.updateAlbumById(useCasePayload);
     res.json(result);
   }
 
   async deleteAlbumByIdController(req, res) {
     const { id } = req.params;
-    const result = await this.albumUseCase.deleteAlbumByIdUseCase(id);
+    const useCasePayload = {
+      id,
+    };
+    const result = await this.albumUseCase.deleteAlbumById(useCasePayload);
     res.json(result);
   }
 }
