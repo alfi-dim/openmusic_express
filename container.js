@@ -25,7 +25,7 @@ const FormatModelUtils = require('./Utils/FormatModelUtils');
 bottle.factory('FormatModelUtils', () => FormatModelUtils);
 // songs endpoint
 const SongsController = require('./Infrastructures/controllers/songs');
-const SongsUseCase = require('./Applications/usecases/SongUseCase');
+const SongsUseCase = require('./Applications/usecases/songs');
 const SongsRepository = require('./Infrastructures/repositories/songsRepositoryMongoose');
 const SongModel = require('./Frameworks/mongoose/models/songs');
 

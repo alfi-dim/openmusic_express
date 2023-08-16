@@ -5,31 +5,40 @@ class SongsController {
 
   async addNewSongController(req, res) {
     const useCasePayload = req.body;
-    const result = await this.songUseCase.addNewSongUseCase(useCasePayload);
+    const result = await this.songUseCase.addNewSong(useCasePayload);
     res.json(result).status(201);
   }
 
   async getAllSongController(res) {
-    const result = await this.songUseCase.getAllSongUseCase();
+    const result = await this.songUseCase.getAllSong();
     res.json(result);
   }
 
   async getSongByIdController(req, res) {
     const { id } = req.params;
-    const result = await this.songUseCase.getSongByIdUseCase(id);
+    const useCasePayload = {
+      id,
+    };
+    const result = await this.songUseCase.getSongById(useCasePayload);
     res.json(result);
   }
 
   async updateSongByIdController(req, res) {
     const { id } = req.params;
-    const useCasePayload = req.body;
-    const result = await this.songUseCase.updateSongByIdUseCase(id, useCasePayload);
+    const useCasePayload = {
+      id,
+      body: req.body,
+    };
+    const result = await this.songUseCase.updateSongById(useCasePayload);
     res.json(result);
   }
 
   async deleteSongByIdController(req, res) {
     const { id } = req.params;
-    const result = await this.songUseCase.deleteSongByIdUseCase(id);
+    const useCasePayload = {
+      id,
+    };
+    const result = await this.songUseCase.deleteSongById(useCasePayload);
     res.json(result);
   }
 }
