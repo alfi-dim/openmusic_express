@@ -1,5 +1,5 @@
 const UseCase = require('../../../Interfaces/contracts/UseCase');
-const Album = require('../../../Entities/albumEntity');
+const Album = require('../../../Domains/Entities/albumEntity');
 const InvariantError = require('../../../Exceptions/InvariantError');
 
 class AddNewAlbum extends UseCase {

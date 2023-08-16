@@ -1,5 +1,5 @@
 const UseCase = require('../../../Interfaces/contracts/UseCase');
-const AuthenticationEntity = require('../../../Entities/authenticationEntity');
+const AuthenticationEntity = require('../../../Domains/Entities/authenticationEntity');
 const InvariantError = require('../../../Exceptions/InvariantError');
 
 class UserLogin extends UseCase {

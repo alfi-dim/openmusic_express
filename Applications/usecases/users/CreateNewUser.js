@@ -1,5 +1,5 @@
 const UseCase = require('../../../Interfaces/contracts/UseCase');
-const User = require('../../../Entities/userEntity');
+const User = require('../../../Domains/Entities/userEntity');
 const InvariantError = require('../../../Exceptions/InvariantError');
 
 class CreateNewUser extends UseCase {
