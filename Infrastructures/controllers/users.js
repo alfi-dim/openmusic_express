@@ -1,23 +1,29 @@
 class UsersController {
-  constructor(userUsecase) {
-    this.userUseCase = userUsecase;
+  constructor(userUseCase) {
+    this.userUseCase = userUseCase;
   }
 
   async createNewUserController(req, res) {
     const useCasePayload = req.body;
-    const result = await this.userUseCase.createNewUserUseCase(useCasePayload);
+    const result = await this.userUseCase.createNewUser(useCasePayload);
     res.json(result).status(201);
   }
 
   async verifyIfUsernameIsAvailableController(req, res) {
     const { username } = req.params;
-    const result = await this.userUseCase.verifyIfUsernameIsAvailableUseCase(username);
+    const useCasePayload = {
+      username,
+    };
+    const result = await this.userUseCase.verifyIfUsernameIsAvailable(useCasePayload);
     res.json(result);
   }
 
   async getUserByIdController(req, res) {
     const { id } = req.params;
-    const result = await this.userUseCase.getUserByIdUseCase(id);
+    const useCasePayload = {
+      userId: id,
+    };
+    const result = await this.userUseCase.getUserById(useCasePayload);
     res.json(result);
   }
 }

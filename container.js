@@ -59,7 +59,7 @@ bottle.service('PlaylistsController', PlaylistsController, 'PlaylistsUseCase');
 // users endpoint
 
 const UsersController = require('./Infrastructures/controllers/users');
-const UsersUseCase = require('./Applications/usecases/UserUseCase');
+const UsersUseCase = require('./Applications/usecases/users');
 const UsersRepository = require('./Infrastructures/repositories/usersRepositoryMongoose');
 const UserModel = require('./Frameworks/mongoose/models/users');
 
