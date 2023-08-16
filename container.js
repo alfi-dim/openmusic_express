@@ -47,7 +47,7 @@ bottle.service('AlbumsController', AlbumsController, 'AlbumsUseCase');
 
 // playlist endpoint
 const PlaylistsController = require('./Infrastructures/controllers/playlists');
-const PlaylistsUseCase = require('./Applications/usecases/PlaylistUseCase');
+const PlaylistsUseCase = require('./Applications/usecases/playlists');
 const PlaylistsRepository = require('./Infrastructures/repositories/playlistsRepositoryMongoose');
 const PlaylistModel = require('./Frameworks/mongoose/models/playlists');
 

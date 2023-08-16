@@ -4,9 +4,11 @@ class PlaylistsController {
   }
 
   async addNewPlaylistController(req, res) {
-    const useCasePayload = req.body;
-    useCasePayload.token = req.token;
-    const result = await this.playlistUseCase.addNewPlaylistUseCase(useCasePayload);
+    const useCasePayload = {
+      body: req.body,
+      token: req.token,
+    };
+    const result = await this.playlistUseCase.addNewPlaylist(useCasePayload);
     res.json(result).status(201);
   }
 
@@ -18,7 +20,7 @@ class PlaylistsController {
       songId,
       token: req.token,
     };
-    const result = await this.playlistUseCase.addSongToPlaylistUseCase(useCasePayload);
+    const result = await this.playlistUseCase.addSongToPlaylist(useCasePayload);
     res.json(result);
   }
 
@@ -30,7 +32,7 @@ class PlaylistsController {
       songId,
       token: req.token,
     };
-    const result = await this.playlistUseCase.deleteSongFromPlaylistUseCase(useCasePayload);
+    const result = await this.playlistUseCase.deleteSongFromPlaylist(useCasePayload);
     res.json(result);
   }
 
@@ -39,9 +41,9 @@ class PlaylistsController {
     const useCasePayload = {
       playlistId,
       token: req.token,
-      payload: req.body,
+      body: req.body,
     };
-    const result = await this.playlistUseCase.updatePlaylistByIdUseCase(useCasePayload);
+    const result = await this.playlistUseCase.updatePlaylistById(useCasePayload);
     res.json(result);
   }
 
@@ -51,13 +53,17 @@ class PlaylistsController {
       playlistId,
       token: req.token,
     };
-    const result = await this.playlistUseCase.deletePlaylistByIdUseCase(useCasePayload);
+    const result = await this.playlistUseCase.deletePlaylistById(useCasePayload);
     res.json(result);
   }
 
   async getPlaylistByIdController(req, res) {
-    const { id: playlistId } = req.params;
-    const result = await this.playlistUseCase.getPlaylistByIdUseCase(playlistId);
+    const { id } = req.params;
+    const useCasePayload = {
+      id,
+      token: req.token,
+    };
+    const result = await this.playlistUseCase.getPlaylistById(useCasePayload);
     res.json(result);
   }
 }
