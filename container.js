@@ -23,6 +23,15 @@ bottle.service('JwtTokenManager', JwtTokenManager, 'jwt');
 const FormatModelUtils = require('./Utils/FormatModelUtils');
 
 bottle.factory('FormatModelUtils', () => FormatModelUtils);
+
+// validator
+
+const ValidationHelper = require('./Domains/Validations/validationHelper');
+const ValidationInitiator = require('./Infrastructures/validation/ValidationInitiator');
+
+bottle.service('ValidationHelper', ValidationHelper);
+bottle.service('ValidationInitiator', ValidationInitiator, 'ValidationHelper');
+
 // songs endpoint
 const SongsController = require('./Infrastructures/controllers/songs');
 const SongsUseCase = require('./Applications/usecases/songs');
