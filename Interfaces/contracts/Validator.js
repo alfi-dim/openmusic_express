@@ -11,6 +11,10 @@ class ValidatorContract {
   initiateRule(name, rule) {
     throw new Error('Method not yet implemented');
   }
+
+  getRule(name) {
+    throw new Error('Method not yet implemented');
+  }
 }
 
 module.exports = ValidatorContract;
