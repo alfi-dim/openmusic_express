@@ -8,7 +8,7 @@ class ValidatorContract {
     throw new Error('Method not yet implemented');
   }
 
-  initiateRule(name, rule) {
+  initiateRule(name, rules) {
     throw new Error('Method not yet implemented');
   }
 
