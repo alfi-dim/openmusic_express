@@ -1,6 +1,6 @@
 class SongEntity {
   constructor(id, {
-    title, year, performer, genre, duration,
+    title, year, performer, genre, duration, albumId,
   }) {
     // eslint-disable-next-line no-underscore-dangle
     this._id = id;
@@ -9,6 +9,7 @@ class SongEntity {
     this.performer = performer;
     this.genre = genre;
     this.duration = duration;
+    this.album_id = albumId;
   }
 }
 
