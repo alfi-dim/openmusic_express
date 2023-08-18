@@ -29,7 +29,7 @@ class ValidationHelper extends ValidatorContract {
       const formattedRules = [];
       rules.forEach((rule) => {
         const { fieldName, required, type } = rule;
-        if (!fieldName || !required || !type) {
+        if (!fieldName || typeof required !== 'boolean' || !type) {
           reject(new InvariantError('Required data not found'));
           return;
         }
