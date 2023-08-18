@@ -28,9 +28,11 @@ bottle.factory('FormatModelUtils', () => FormatModelUtils);
 
 const ValidationHelper = require('./Domains/Validations/validationHelper');
 const ValidationInitiator = require('./Infrastructures/validation/ValidationInitiator');
+const PayloadValidator = require('./Applications/validations');
 
 bottle.service('ValidationHelper', ValidationHelper);
 bottle.service('ValidationInitiator', ValidationInitiator, 'ValidationHelper');
+bottle.service('PayloadValidator', PayloadValidator, 'ValidationHelper');
 
 // songs endpoint
 const SongsController = require('./Infrastructures/controllers/songs');
@@ -74,7 +76,7 @@ const UserModel = require('./Frameworks/mongoose/models/users');
 
 bottle.factory('UserModel', () => UserModel);
 bottle.service('UsersRepository', UsersRepository, 'UserModel', 'FormatModelUtils');
-bottle.service('UsersUseCase', UsersUseCase, 'UsersRepository', 'nanoid', 'BcryptHashEngine');
+bottle.service('UsersUseCase', UsersUseCase, 'UsersRepository', 'nanoid', 'BcryptHashEngine', 'PayloadValidator');
 bottle.service('UsersController', UsersController, 'UsersUseCase');
 
 // authentications endpoint
