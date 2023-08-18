@@ -30,6 +30,14 @@ const songSchema = new Schema({
   },
   album_id: {
     type: String,
+    ref: 'albums',
+    validate: {
+      async validator(value) {
+        const AlbumModel = model('albums');
+        return AlbumModel.exists({ _id: value });
+      },
+      message: 'Referenced album does not exist.',
+    },
   },
 });
 
