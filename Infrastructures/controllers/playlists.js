@@ -9,7 +9,7 @@ class PlaylistsController {
       token: req.token,
     };
     const result = await this.playlistUseCase.addNewPlaylist(useCasePayload);
-    res.json(result).status(201);
+    res.status(201).json(result);
   }
 
   async addSongToPlaylistController(req, res) {

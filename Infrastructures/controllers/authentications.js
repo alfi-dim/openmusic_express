@@ -6,7 +6,7 @@ class AuthenticationsController {
   async loginController(req, res) {
     const useCasePayload = req.body;
     const result = await this.authenticationsUseCase.login(useCasePayload);
-    res.json(result).status(201);
+    res.status(201).json(result);
   }
 
   async logoutController(req, res) {

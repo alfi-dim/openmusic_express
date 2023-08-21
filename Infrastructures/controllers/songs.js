@@ -6,7 +6,7 @@ class SongsController {
   async addNewSongController(req, res) {
     const useCasePayload = req.body;
     const result = await this.songUseCase.addNewSong(useCasePayload);
-    res.json(result).status(201);
+    res.status(201).json(result);
   }
 
   async getAllSongController(res) {

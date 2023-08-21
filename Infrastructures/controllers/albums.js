@@ -6,7 +6,7 @@ class AlbumsController {
   async addNewAlbumController(req, res) {
     const useCasePayload = req.body;
     const result = await this.albumUseCase.addNewAlbum(useCasePayload);
-    res.json(result).status(201);
+    res.status(201).json(result);
   }
 
   async getAllAlbumController(req, res) {
