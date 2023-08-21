@@ -3,14 +3,13 @@ const ClientError = require('../Exceptions/ClientError');
 const PreResponseHandler = (err, req, res, next) => {
   if (err) {
     if (err instanceof ClientError) {
-      return res.status(err.statusCode).json({ status: 'fail', error: err.message });
+      return res.status(err.statusCode).json({ status: 'fail', message: err.message });
     }
 
     if (err.name === 'ValidationError') {
-      // eslint-disable-next-line no-underscore-dangle
-      return res.status(400).json({ status: 'fail', error: err._message });
+      return res.status(400).json({ status: 'fail', message: err.message });
     }
-    return res.status(500).json({ status: 'fail', error: 'server failure' });
+    return res.status(500).json({ status: 'fail', message: 'server failure' });
   }
   return next();
 };
