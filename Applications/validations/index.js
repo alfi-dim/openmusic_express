@@ -5,15 +5,15 @@ class PayloadValidator {
     this.validationHelper = validationHelper;
   }
 
-  validatePayload(name, payload) {
+  validate(name, payload) {
     const rules = this.validationHelper.getRule(name);
     rules.forEach(({ required, fieldName, type }) => {
       if (required && !(fieldName in payload)) {
         throw new ValidationError('Required data not found');
       }
       // eslint-disable-next-line valid-typeof
-      if (typeof payload[fieldName] !== type) {
-        throw new ValidationError('Invalid data type requirement');
+      if (typeof payload[fieldName] !== type && (fieldName in payload)) {
+        throw new ValidationError(`Invalid data type requirement: ${fieldName}`);
       }
     });
   }
