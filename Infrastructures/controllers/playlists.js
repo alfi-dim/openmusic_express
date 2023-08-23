@@ -14,10 +14,9 @@ class PlaylistsController {
 
   async addSongToPlaylistController(req, res) {
     const { id: playlistId } = req.params;
-    const { songId } = req.body;
     const useCasePayload = {
       playlistId,
-      songId,
+      body: req.body,
       token: req.token,
     };
     const result = await this.playlistUseCase.addSongToPlaylist(useCasePayload);
@@ -26,10 +25,9 @@ class PlaylistsController {
 
   async deleteSongFromPlaylistController(req, res) {
     const { id: playlistId } = req.params;
-    const { songId } = req.body;
     const useCasePayload = {
       playlistId,
-      songId,
+      body: req.body,
       token: req.token,
     };
     const result = await this.playlistUseCase.deleteSongFromPlaylist(useCasePayload);
