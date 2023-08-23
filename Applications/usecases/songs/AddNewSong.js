@@ -1,16 +1,16 @@
 const UseCase = require('../../../Interfaces/contracts/UseCase');
 const Song = require('../../../Domains/Entities/songEntity');
-const InvariantError = require('../../../Exceptions/InvariantError');
 
 class AddNewSong extends UseCase {
-  constructor(songsRepository, idGenerator) {
+  constructor(songsRepository, idGenerator, payloadValidator) {
     super();
     this.songsRepository = songsRepository;
     this.idGenerator = idGenerator;
+    this.payloadValidator = payloadValidator;
   }
 
   async execute(useCasePayload) {
-    this.validatePayload(useCasePayload);
+    this.payloadValidator.validate('songs', useCasePayload);
     const id = `songs-${this.idGenerator(16)}`;
     const song = new Song(id, useCasePayload);
     const songId = await this.songsRepository.addNewSong(song);
@@ -20,20 +20,6 @@ class AddNewSong extends UseCase {
         songId,
       },
     };
-  }
-
-  validatePayload(payload) {
-    const {
-      title, year, performer, genre, duration,
-    } = payload;
-
-    if (!title || !year || !performer || !genre || !duration) {
-      throw new InvariantError('Required data not found');
-    }
-
-    if (typeof title !== 'string' || typeof year !== 'number' || typeof performer !== 'string' || typeof genre !== 'string' || typeof duration !== 'number') {
-      throw new InvariantError('Invalid data type requirement');
-    }
   }
 }
 

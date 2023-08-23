@@ -1,5 +1,4 @@
 const UseCase = require('../../../Interfaces/contracts/UseCase');
-const InvariantError = require('../../../Exceptions/InvariantError');
 
 class GetUserById extends UseCase {
   constructor(usersRepository) {
@@ -17,18 +16,6 @@ class GetUserById extends UseCase {
         user,
       },
     };
-  }
-
-  validatePayload(payload) {
-    const { userId } = payload;
-
-    if (!userId) {
-      throw new InvariantError('Required data not found');
-    }
-
-    if (typeof userId !== 'string') {
-      throw new InvariantError('Invalid data type requirement');
-    }
   }
 }
 

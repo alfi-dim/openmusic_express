@@ -1,17 +1,17 @@
 const UseCase = require('../../../Interfaces/contracts/UseCase');
 const User = require('../../../Domains/Entities/userEntity');
-const InvariantError = require('../../../Exceptions/InvariantError');
 
 class CreateNewUser extends UseCase {
-  constructor(usersRepository, idGenerator, hashEngine) {
+  constructor(usersRepository, idGenerator, hashEngine, payloadValidator) {
     super();
     this.usersRepository = usersRepository;
     this.idGenerator = idGenerator;
     this.hashEngine = hashEngine;
+    this.payloadValidator = payloadValidator;
   }
 
   async execute(useCasePayload) {
-    this.validatePayload(useCasePayload);
+    this.payloadValidator.validate('users', useCasePayload);
     const { username, password, fullname } = useCasePayload;
     await this.usersRepository.verifyIfUsernameIsAvailable(username);
     const id = `users-${this.idGenerator(16)}`;
@@ -26,18 +26,6 @@ class CreateNewUser extends UseCase {
         userId,
       },
     };
-  }
-
-  validatePayload(payload) {
-    const { username, password, fullname } = payload;
-
-    if (!username || !password || !fullname) {
-      throw new InvariantError('Required data not found');
-    }
-
-    if (typeof username !== 'string' || typeof password !== 'string' || typeof fullname !== 'string') {
-      throw new InvariantError('Invalid data type requirement');
-    }
   }
 }
 

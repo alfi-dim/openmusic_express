@@ -1,17 +1,20 @@
 const UseCase = require('../../../Interfaces/contracts/UseCase');
-const InvariantError = require('../../../Exceptions/InvariantError');
 
 class AddSongToPlaylist extends UseCase {
-  constructor(playlistsRepository, songsRepository, tokenManager) {
+  constructor(playlistsRepository, songsRepository, tokenManager, payloadValidator) {
     super();
     this.playlistsRepository = playlistsRepository;
     this.songsRepository = songsRepository;
     this.tokenManager = tokenManager;
+    this.payloadValidator = payloadValidator;
   }
 
   async execute(useCasePayload) {
-    this.validatePayload(useCasePayload);
-    const { token, songId, playlistId } = useCasePayload;
+    const { token, body, playlistId } = useCasePayload;
+    this.payloadValidator.validate('songId', body);
+    this.payloadValidator.validate('token', { token });
+
+    const { songId } = body;
     await this.tokenManager.verifyAccessToken(token);
     const { userId } = await this.tokenManager.decodePayload(token);
 
@@ -21,18 +24,6 @@ class AddSongToPlaylist extends UseCase {
     return {
       status: 'success',
     };
-  }
-
-  validatePayload(payload) {
-    const { token, songId, playlistId } = payload;
-
-    if (!token || !songId || !playlistId) {
-      throw new InvariantError('Required data not found');
-    }
-
-    if (typeof token !== 'string' || typeof songId !== 'string' || typeof playlistId !== 'string') {
-      throw new InvariantError('Invalid data type requirement');
-    }
   }
 }
 

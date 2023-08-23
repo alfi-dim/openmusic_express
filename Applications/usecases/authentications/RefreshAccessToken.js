@@ -1,15 +1,16 @@
 const UseCase = require('../../../Interfaces/contracts/UseCase');
-const InvariantError = require('../../../Exceptions/InvariantError');
 
 class RefreshAccessToken extends UseCase {
-  constructor(authenticationsRepository, tokenManager) {
+  constructor(authenticationsRepository, tokenManager, payloadValidator) {
     super();
     this.authenticationsRepository = authenticationsRepository;
     this.tokenManager = tokenManager;
+    this.payloadValidator = payloadValidator;
   }
 
   async execute(useCasePayload) {
-    this.validatePayload(useCasePayload);
+    // this.validatePayload(useCasePayload);
+    this.payloadValidator.validate('refreshToken', useCasePayload);
     const { refreshToken } = useCasePayload;
     await this.tokenManager.verifyRefreshToken(refreshToken);
     await this.authenticationsRepository.verifyIfRefreshTokenIsExist(refreshToken);
@@ -24,18 +25,6 @@ class RefreshAccessToken extends UseCase {
         accessToken,
       },
     };
-  }
-
-  validatePayload(payload) {
-    const { refreshToken } = payload;
-
-    if (!refreshToken) {
-      throw new InvariantError('Required data not found');
-    }
-
-    if (typeof refreshToken !== 'string') {
-      throw new InvariantError('Invalid data type requirement');
-    }
   }
 }
 

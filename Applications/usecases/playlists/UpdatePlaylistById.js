@@ -2,15 +2,19 @@ const UseCase = require('../../../Interfaces/contracts/UseCase');
 const InvariantError = require('../../../Exceptions/InvariantError');
 
 class UpdatePlaylistById extends UseCase {
-  constructor(playlistsRepository, tokenManager) {
+  constructor(playlistsRepository, tokenManager, payloadValidator) {
     super();
     this.playlistsRepository = playlistsRepository;
     this.tokenManager = tokenManager;
+    this.payloadValidator = payloadValidator;
   }
 
   async execute(useCasePayload) {
-    this.validatePayload(useCasePayload);
+    // this.validatePayload(useCasePayload);
     const { token, playlistId, body } = useCasePayload;
+    this.payloadValidator.validate('playlists', body);
+    this.payloadValidator.validate('token', { token });
+
     await this.tokenManager.verifyAccessToken(token);
     const { userId } = await this.tokenManager.decodePayload(token);
 

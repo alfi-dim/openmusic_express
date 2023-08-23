@@ -1,14 +1,14 @@
 const UseCase = require('../../../Interfaces/contracts/UseCase');
-const InvariantError = require('../../../Exceptions/InvariantError');
 
 class VerifyIfUsernameIsAvailable extends UseCase {
-  constructor(usersRepository) {
+  constructor(usersRepository, payloadValidator) {
     super();
     this.usersRepository = usersRepository;
+    this.payloadValidator = payloadValidator;
   }
 
   async execute(useCasePayload) {
-    this.validatePayload(useCasePayload);
+    this.payloadValidator.validate('username', useCasePayload);
     const { username } = useCasePayload;
     await this.usersRepository.verifyIfUsernameIsAvailable(username);
 
@@ -18,18 +18,6 @@ class VerifyIfUsernameIsAvailable extends UseCase {
         available: true,
       },
     };
-  }
-
-  validatePayload(payload) {
-    const { username } = payload;
-
-    if (!username) {
-      throw new InvariantError('Required data not found');
-    }
-
-    if (typeof username !== 'string') {
-      throw new InvariantError('Invalid data type requirement');
-    }
   }
 }
 
