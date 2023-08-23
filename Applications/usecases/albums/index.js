@@ -5,13 +5,15 @@ const UpdateAlbumById = require('./UpdateAlbumById');
 const DeleteAlbumById = require('./DeleteAlbumById');
 
 class AlbumsUseCase {
-  constructor(albumsRepository, idGenerator) {
+  constructor(albumsRepository, idGenerator, payloadValidator) {
     this.albumsRepository = albumsRepository;
     this.idGenerator = idGenerator;
+    this.payloadValidator = payloadValidator;
   }
 
   addNewAlbum(useCasePayload) {
-    return new AddNewAlbum(this.albumsRepository, this.idGenerator).execute(useCasePayload);
+    return new AddNewAlbum(this.albumsRepository, this.idGenerator, this.payloadValidator)
+      .execute(useCasePayload);
   }
 
   getAllAlbum() {
@@ -23,7 +25,7 @@ class AlbumsUseCase {
   }
 
   updateAlbumById(useCasePayload) {
-    return new UpdateAlbumById(this.albumsRepository).execute(useCasePayload);
+    return new UpdateAlbumById(this.albumsRepository, this.payloadValidator).execute(useCasePayload);
   }
 
   deleteAlbumById(useCasePayload) {

@@ -3,11 +3,12 @@ const UserLogout = require('./UserLogout');
 const RefreshAccessToken = require('./RefreshAccessToken');
 
 class AuthenticationsUseCase {
-  constructor(authenticationsRepository, usersRepository, hashEngine, tokenManager) {
+  constructor(authenticationsRepository, usersRepository, hashEngine, tokenManager, payloadValidator) {
     this.authenticationsRepository = authenticationsRepository;
     this.usersRepository = usersRepository;
     this.hashEngine = hashEngine;
     this.tokenManager = tokenManager;
+    this.payloadValidator = payloadValidator;
   }
 
   async login(useCasePayload) {
@@ -16,15 +17,21 @@ class AuthenticationsUseCase {
       this.usersRepository,
       this.hashEngine,
       this.tokenManager,
+      this.payloadValidator,
     ).execute(useCasePayload);
   }
 
   async logout(useCasePayload) {
-    return new UserLogout(this.authenticationsRepository).execute(useCasePayload);
+    return new UserLogout(this.authenticationsRepository, this.payloadValidator)
+      .execute(useCasePayload);
   }
 
   async refreshAccessToken(useCasePayload) {
-    return new RefreshAccessToken(this.authenticationsRepository, this.tokenManager)
+    return new RefreshAccessToken(
+      this.authenticationsRepository,
+      this.tokenManager,
+      this.payloadValidator,
+    )
       .execute(useCasePayload);
   }
 }

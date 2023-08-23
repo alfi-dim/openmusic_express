@@ -5,13 +5,15 @@ const UpdateSongById = require('./UpdateSongById');
 const DeleteSongById = require('./DeleteSongById');
 
 class SongsUseCase {
-  constructor(songsRepository, idGenerator) {
+  constructor(songsRepository, idGenerator, payloadValidator) {
     this.songsRepository = songsRepository;
     this.idGenerator = idGenerator;
+    this.payloadValidator = payloadValidator;
   }
 
   addNewSong(useCasePayload) {
-    return new AddNewSong(this.songsRepository, this.idGenerator).execute(useCasePayload);
+    return new AddNewSong(this.songsRepository, this.idGenerator, this.payloadValidator)
+      .execute(useCasePayload);
   }
 
   getAllSong() {
@@ -23,7 +25,7 @@ class SongsUseCase {
   }
 
   updateSongById(useCasePayload) {
-    return new UpdateSongById(this.songsRepository).execute(useCasePayload);
+    return new UpdateSongById(this.songsRepository, this.payloadValidator).execute(useCasePayload);
   }
 
   deleteSongById(useCasePayload) {
