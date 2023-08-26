@@ -12,8 +12,8 @@ bottle.factory('jwt', () => jwt);
 
 // services
 
-const BcryptHashEngine = require('./Interfaces/services/BcryptHashEngine');
-const JwtTokenManager = require('./Interfaces/services/JwtTokenManager');
+const BcryptHashEngine = require('./Infrastructures/services/BcryptHashEngine');
+const JwtTokenManager = require('./Infrastructures/services/JwtTokenManager');
 
 bottle.service('BcryptHashEngine', BcryptHashEngine, 'bcrypt');
 bottle.service('JwtTokenManager', JwtTokenManager, 'jwt');
@@ -23,61 +23,72 @@ bottle.service('JwtTokenManager', JwtTokenManager, 'jwt');
 const FormatModelUtils = require('./Utils/FormatModelUtils');
 
 bottle.factory('FormatModelUtils', () => FormatModelUtils);
+
+// validator
+
+const ValidationHelper = require('./Domains/Validations/validationHelper');
+const ValidationInitiator = require('./Infrastructures/validation/ValidationInitiator');
+const PayloadValidator = require('./Applications/validations');
+
+bottle.service('ValidationHelper', ValidationHelper);
+bottle.service('ValidationInitiator', ValidationInitiator, 'ValidationHelper');
+bottle.service('PayloadValidator', PayloadValidator, 'ValidationHelper');
+
 // songs endpoint
-const SongsController = require('./Interfaces/controllers/songs');
-const SongsUseCase = require('./Applications/usecases/SongUseCase');
-const SongsRepository = require('./Interfaces/repositories/songsRepository');
+const SongsController = require('./Infrastructures/controllers/songs');
+const SongsUseCase = require('./Applications/usecases/songs');
+const SongsRepository = require('./Infrastructures/repositories/songsRepositoryMongoose');
 const SongModel = require('./Frameworks/mongoose/models/songs');
 
 bottle.factory('SongModel', () => SongModel);
 bottle.service('SongsRepository', SongsRepository, 'SongModel', 'FormatModelUtils');
-bottle.service('SongsUseCase', SongsUseCase, 'SongsRepository', 'nanoid');
+bottle.service('SongsUseCase', SongsUseCase, 'SongsRepository', 'nanoid', 'PayloadValidator');
 bottle.service('SongsController', SongsController, 'SongsUseCase');
 
 // albums endpoint
-const AlbumsController = require('./Interfaces/controllers/albums');
-const AlbumsUseCase = require('./Applications/usecases/AlbumUseCase');
-const AlbumsRepository = require('./Interfaces/repositories/albumsRepository');
+const AlbumsController = require('./Infrastructures/controllers/albums');
+const AlbumsUseCase = require('./Applications/usecases/albums');
+const AlbumsRepository = require('./Infrastructures/repositories/albumsRepositoryMongoose');
 const AlbumModel = require('./Frameworks/mongoose/models/albums');
 
 bottle.factory('AlbumModel', () => AlbumModel);
 bottle.service('AlbumsRepository', AlbumsRepository, 'AlbumModel', 'FormatModelUtils');
-bottle.service('AlbumsUseCase', AlbumsUseCase, 'AlbumsRepository', 'nanoid');
+bottle.service('AlbumsUseCase', AlbumsUseCase, 'AlbumsRepository', 'nanoid', 'PayloadValidator');
 bottle.service('AlbumsController', AlbumsController, 'AlbumsUseCase');
 
 // playlist endpoint
-const PlaylistsController = require('./Interfaces/controllers/playlists');
-const PlaylistsUseCase = require('./Applications/usecases/PlaylistUseCase');
-const PlaylistsRepository = require('./Interfaces/repositories/playlistsRepository');
+const PlaylistsController = require('./Infrastructures/controllers/playlists');
+const PlaylistsUseCase = require('./Applications/usecases/playlists');
+const PlaylistsRepository = require('./Infrastructures/repositories/playlistsRepositoryMongoose');
 const PlaylistModel = require('./Frameworks/mongoose/models/playlists');
 
 bottle.factory('PlaylistModel', () => PlaylistModel);
 bottle.service('PlaylistsRepository', PlaylistsRepository, 'PlaylistModel', 'FormatModelUtils');
-bottle.service('PlaylistsUseCase', PlaylistsUseCase, 'PlaylistsRepository', 'SongsRepository', 'nanoid', 'JwtTokenManager');
+bottle.service('PlaylistsUseCase', PlaylistsUseCase, 'PlaylistsRepository', 'SongsRepository', 'nanoid', 'JwtTokenManager', 'PayloadValidator');
 bottle.service('PlaylistsController', PlaylistsController, 'PlaylistsUseCase');
 
 // users endpoint
 
-const UsersController = require('./Interfaces/controllers/users');
-const UsersUseCase = require('./Applications/usecases/UserUseCase');
-const UsersRepository = require('./Interfaces/repositories/usersRepository');
+const UsersController = require('./Infrastructures/controllers/users');
+const UsersUseCase = require('./Applications/usecases/users');
+const UsersRepository = require('./Infrastructures/repositories/usersRepositoryMongoose');
 const UserModel = require('./Frameworks/mongoose/models/users');
 
 bottle.factory('UserModel', () => UserModel);
 bottle.service('UsersRepository', UsersRepository, 'UserModel', 'FormatModelUtils');
-bottle.service('UsersUseCase', UsersUseCase, 'UsersRepository', 'nanoid', 'BcryptHashEngine');
+bottle.service('UsersUseCase', UsersUseCase, 'UsersRepository', 'nanoid', 'BcryptHashEngine', 'PayloadValidator');
 bottle.service('UsersController', UsersController, 'UsersUseCase');
 
 // authentications endpoint
 
-const AuthenticationsController = require('./Interfaces/controllers/authentications');
-const AuthenticationsUseCase = require('./Applications/usecases/AuthenticationsUseCase');
-const AuthenticationsRepository = require('./Interfaces/repositories/authenticationsRepository');
+const AuthenticationsController = require('./Infrastructures/controllers/authentications');
+const AuthenticationsUseCase = require('./Applications/usecases/authentications');
+const AuthenticationsRepository = require('./Infrastructures/repositories/authenticationsRepositoryMongoose');
 const AuthenticationModel = require('./Frameworks/mongoose/models/authentications');
 
 bottle.factory('AuthenticationModel', () => AuthenticationModel);
 bottle.service('AuthenticationsRepository', AuthenticationsRepository, 'AuthenticationModel');
-bottle.service('AuthenticationsUseCase', AuthenticationsUseCase, 'AuthenticationsRepository', 'UsersRepository', 'BcryptHashEngine', 'JwtTokenManager');
+bottle.service('AuthenticationsUseCase', AuthenticationsUseCase, 'AuthenticationsRepository', 'UsersRepository', 'BcryptHashEngine', 'JwtTokenManager', 'PayloadValidator');
 bottle.service('AuthenticationsController', AuthenticationsController, 'AuthenticationsUseCase');
 
 module.exports = bottle;
