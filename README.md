@@ -26,37 +26,49 @@ The project follows the Clean Architecture principles, providing a clear separat
 
 ```
 openmusic_express/
-  ├── app.js
-  ├── container.js
-  ├── server.js
-  ├── .env
-  ├── application/
-  │   └── use_case/
-  │       └── use_casefile.js
-  ├── entities/
-  │   └── entitiesfile.js
-  ├── exception/
-  │   └── customerror.js
-  ├── frameworks/
-  │   ├── express/
-  │   │   └── routes/
-  │   │       └── routefile.js
-  │   └── mongoose/
-  │       ├── connector/
-  │       │   └── db.js
-  │       └── models/
-  │           └── modelfile.js
-  ├── interfaces/
-  │   ├── controllers/
-  │   │   └── controllerfile.js
-  │   └── repositories/
-  │   │   └── repositoryfile.js
-  │   └── services/
-  │       └── serviceFile.js
-  ├── middleware/
-  │   └── preresponsehandler.js
-  ├── Utils/
-  │   └── formattermodeltutils.js
++---.env
++---.eslintrc.json
++---.gitignore
++---app.js
++---container.js
++---README.md
++---server.js
++---Applications
+¦   +---usecases
+¦   ¦   +---albums
+¦   ¦   +---authentications
+¦   ¦   +---playlists
+¦   ¦   +---songs
+¦   ¦   +---users
+¦   +---validations
++---Domains
+¦   +---Entities
+¦   ¦
+¦   +---Validations
++---Exceptions
+¦
++---Frameworks
+¦   +---express
+¦   ¦   +---routes
+¦   ¦
+¦   +---mongoose
+¦       +---connector
+¦       +---models
+¦
++---Infrastructures
+¦   +---controllers
+¦   +---repositories
+¦   +---services
+¦   +---validation
++---Interfaces
+¦   +---contracts
+¦   ¦
+¦   +---repositories
+¦   +---services
+¦
++---Middleware
+¦
++---Utils
 
 ```
 
