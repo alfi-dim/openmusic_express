@@ -444,8 +444,16 @@ The API provides the following endpoints:
 
 **^: Only the user who originally created the data.**
 ## Environment File
-- `ACCESS_TOKEN_KEY`: run `require('crypto').createHash('sha256').update('text').digest('hex')` on node.js terminal
-- `REFRESH_TOKEN_KEY`: run `require('crypto').createHash('sha256').update('text').digest('hex')` on node.js terminal
-- `TOKEN_AGE`:  token expiration time in seconds
+To run this project, you'll need to set up a .env file in the root directory with the following environment variables:
+
+- `MONGODBHOST`: MongoDB host name
+- `MONGODBNAME`: MongoDB database name
+- `PORT`: Server port
+- `HOST`: Server host name
+- `ACCESS_TOKEN_KEY`: Use `require('crypto').createHash('sha256').update('text').digest('hex')` in a Node.js terminal to generate the access token key
+- `REFRESH_TOKEN_KEY`: Use `require('crypto').createHash('sha256').update('text').digest('hex')` in a Node.js terminal to generate the refresh token key
+- `TOKEN_AGE`: Token expiration time in seconds
+
+Make sure to replace 'text' with your preferred secret text when generating token keys.
 
 Feel free to explore and contribute to the project. If you encounter any issues or have suggestions, don't hesitate to create an issue on this repository.

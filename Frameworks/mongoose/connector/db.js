@@ -1,7 +1,7 @@
 const { connect } = require('mongoose');
 
 const ConnectToDatabase = async () => {
-  await connect('mongodb://127.0.0.1:27017/openmusic');
+  await connect(`${process.env.MONGODBHOST}/${process.env.MONGODBNAME}`);
 };
 // eslint-disable-next-line no-console
 ConnectToDatabase().catch((err) => console.log(err));
